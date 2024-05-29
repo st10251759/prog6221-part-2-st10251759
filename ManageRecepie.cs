@@ -68,7 +68,128 @@ namespace ST10251759_PROG6221_POE_Part_2
             recipe.DisplayRecipe(); // display the recipe to the user
 
         }//addRecipe end
- 
+
+        public void recipeOptions(Recipe recipe)
+        {//recipeOptions Method begin 
+            int selection = 0;
+            // set selection value to 0
+            string recipeName = recipe.Name;
+            //List<Ingredient> ingredients = new List<Ingredient>(recipe.Ingredients);
+
+            //flag variable that will add validation to continue to prompt the user for the menu option until user selects exit by entering the integer 4
+            bool exit = false;
+            while (!exit)
+            {//while begin
+                Console.ForegroundColor = ConsoleColor.Green;
+                // change font colour to green
+                Console.WriteLine("Please select one of the following options:");
+                Console.WriteLine("1.Display recipe\n2.Scale Recipe\n3.Reset Recipe\n4.Clear\n5.Add a recipe\n6.Display all recipes\n7.Back to main menu\n");
+                Console.ResetColor();
+                Console.Write("\nEnter your choice:");
+                selection = int.Parse(Console.ReadLine());
+                // get selection number form user
+
+                if (selection < 0 || selection > 7)
+                { throw new ArgumentOutOfRangeException("Selection is out of bounds"); }
+
+                Console.ForegroundColor = ConsoleColor.White;
+                // change font colour to white
+
+                // create switch case statment to call different methods based on user input selection
+                switch (selection)
+                {
+                    case 1:
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("============================================");
+                        Console.WriteLine("          Display Recipe          ");
+                        Console.WriteLine("============================================");
+                        Console.ResetColor();
+
+                        recipe.DisplayRecipe();
+                        break;
+                    case 2:
+                        Console.Clear();
+                        //call the method to scale the ingredients of the recipes
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("============================================");
+                        Console.WriteLine("          Scaling Recipe          ");
+                        Console.WriteLine("============================================");
+                        Console.ResetColor();
+
+                        recipe.ScaleRecipe();
+                        recipe.DisplayRecipe();
+                        break;
+                    case 3:
+                        Console.Clear();
+                        //call the method to reset the values of the reciepe to the original values
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("============================================");
+                        Console.WriteLine("          Resetting Recipe          ");
+                        Console.WriteLine("============================================");
+                        Console.ResetColor();
+
+                        recipe.ResetRecipe();
+                        recipe.DisplayRecipe();
+                        break;
+                    case 4:
+                        Console.Clear();
+                        //call the method to clear the reciepe entered and reprompt user to enter antoehr recipe
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("============================================");
+                        Console.WriteLine("          Clearing Recipe          ");
+                        Console.WriteLine("============================================");
+                        Console.ResetColor();
+
+                        DeleteRecipe(recipes, recipe);
+
+                        //recipe.ClearRecipe();
+                        exit = true;  //Exit loop after deleting
+                        mainOptions();
+                        break;
+                    case 5:
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("============================================");
+                        Console.WriteLine("          Adding Recipe          ");
+                        Console.WriteLine("============================================");
+                        Console.ResetColor();
+
+                        addRecipe();
+                        break;
+
+                    case 6:
+                        Console.Clear();
+                        // call addRecipe method to add a new recipe
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("============================================");
+                        Console.WriteLine("          Recipe List          ");
+                        Console.WriteLine("============================================");
+                        Console.ResetColor();
+                        displayAllRecipies();
+                        break;
+                    case 7:
+                        Console.Clear();
+                        //exit the program
+                        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                        Console.WriteLine("========================================================");
+                        Console.WriteLine("Returning back to main menu");
+                        Console.WriteLine("=======================================================");
+                        Console.ResetColor();
+                        mainOptions();
+                        exit = true;
+                        break;
+                    default:
+                        //Valition if user entered an invalid number not between the range of 1 - 4
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Invalid option. Please try again.");
+                        Console.ResetColor();
+
+                        break;
+                }// end switch case
+            }//while end
+        }//recipeOptions end
+
         private int GetIntegerInput()
         {//GetIntegerInput begin
          //while loop to continue prompting user until value is correct
