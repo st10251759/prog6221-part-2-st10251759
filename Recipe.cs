@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿sing System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -166,7 +167,7 @@ namespace ST10251759_PROG6221_POE_Part_2
             {
                 // display each object in the arraylist
                 Ingredient ingredient = (Ingredient)ingredients[i];
-
+                ingredient.display();
             }// end for loop
         }// end displayIngredients method
 
@@ -315,7 +316,8 @@ namespace ST10251759_PROG6221_POE_Part_2
                 //the scaled value equals the ingredients quantity multiplied by the factor
                 double scaledQuantity = ingredient.Quantity * factor;
 
-
+                //alter the calories for ingredient
+                ingredient.CalculateScaledCalories(factor);
 
                 //The switch statement is used to select one of many code blocks to be executed based on the value of a given expression.
                 switch (ingredient.Unit)
@@ -477,9 +479,7 @@ namespace ST10251759_PROG6221_POE_Part_2
             Console.ResetColor();
         }//ResetRecipe end
 
-
         //method to validate the intger entered as user input
-
         private int GetIntegerInput()
         {//GetIntegerInput begin
             //while loop to continue prompting user until value is correct
@@ -632,19 +632,6 @@ namespace ST10251759_PROG6221_POE_Part_2
                 }//else end
             }//while loop end
         }//GetFoodGroup end
-
-        //GETTERS AND SETTERS
-
-        // CREATED FOR USE IN UNIT TESTING
-        public void setTotalCalories(double totalCalories)
-        { this.totalCalories = totalCalories; }
-
-        public void setIngredients(List<Ingredient> ingredients)
-        { this.ingredients = ingredients; }
-
-        public string Message()
-        { return message; }
-
 
     }//Reciepe Class Begin
 }//namespace end
