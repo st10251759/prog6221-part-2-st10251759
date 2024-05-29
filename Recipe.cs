@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +36,10 @@ Date of Access: 09 April 2024
 */
 namespace ST10251759_PROG6221_POE_Part_2
 {//namespace begin
+    public delegate void RecipeDelegate(string message);
+    // use of generic collections
+    // delegate created to display the calorie messages in application
+
     public class Recipe
     {//Reciepe Class Begin
         //Attribute - variable declaration
@@ -74,84 +77,113 @@ namespace ST10251759_PROG6221_POE_Part_2
             this.numSteps = numSteps;
         }// end constructor
 
-        //Method to prompt user to enter details for reciepe 
-        public void EnterRecipeDetails()
-        {//EnterRecipeDetails begin
+        //method to get ingredients
+        public void setIngredients()
+        {//setIngredients begin
+         // run a loop for the number of ingredients in the recipe
 
-            //Display Headings in Green
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("============================================");
-            Console.WriteLine("Enter Recipe Details:");
+            Console.WriteLine("Enter Ingredient Details:");
             Console.WriteLine("============================================");
             Console.ResetColor();
 
-            //Prompt user to enter the name of the recipe by calling the get string input method
-            Name = GetNonEmptyStringInput("Name: ");
-
-            Console.WriteLine("");
-
-            //Prompt user to enter the number of ingredients in your recipe
-            //numIngredients will be used a loop controller
-            Console.Write("Number of ingredients: ");
-            int numIngredients = GetIntegerInput();
-
-            Console.WriteLine("");
-
-            //create and store ingreients in an array using the numIngredients as the size of the array
-            Ingredients = new Ingredient[numIngredients];
-
-            //Create an array to hold the current ingredients and unit of measurement
-            OriginalQuantities = new double[numIngredients];
-            OriginalUnits = new UnitOfMeasurement[numIngredients];
-
-            //run for loop to store all ingredients details. Will continue prompting user unit all ingeredients are entered 
             for (int i = 0; i < numIngredients; i++)
-            {//for loop begin
-                //instantiate the creation of the object for every ingredient
-                Ingredients[i] = new Ingredient();
+            {
+                // GET NAME FROM USER
+                string ingredientName = GetNonEmptyStringInput($"\nPlease enter the name of ingredient number {i + 1}:");
 
-                // Prompt user for each Ingredients name and store in a variable by calling the get string input method
-                Ingredients[i].Name = GetNonEmptyStringInput($"Ingredient {i + 1} name: ");
+                // GET QUANTITY FROM USER
+                double quantity;//variable to hold quantity of ingredients
+                                //do while loop to continue prompting user if they enter invalid integer ( zero or less)
+                do
+                {//do begin
+                    Console.Write($"Please enter the quantity of {ingredientName}:");
+                    quantity = GetDoubleInput();
+                    if (quantity <= 0)
+                    {//if begin
+                        Console.WriteLine("Please enter a valid number (greater than zero).");
+                    }//if end
+                }//do end
+                while (quantity <= 0); //while condition
+
+                // GET UNIT OF MEASUREMENT FROM USER
+                UnitOfMeasurement unit = GetUnitOfMeasurement($"Unit of measurement for {ingredientName}: ");
+
+                // GET NUMBER OF CALORIES FROM USER
+                double calories;//variable to hold quantity of ingredients
+                                //do while loop to continue prompting user if they enter invalid integer ( zero or less)
+                do
+                {//do begin
+                    Console.Write($"Please enter the calories for {ingredientName}:");
+                    calories = GetDoubleInput();
+                    if (calories <= 0)
+                    {//if begin
+                        Console.WriteLine("Please enter a valid number (greater than zero).");
+                    }//if end
+                }//do end
+                while (calories <= 0); //while condition
+
+                //  GET FOOD GROUP FROM USER
+                Console.WriteLine("A Food Group is a collection of foods that share similar nutritional properties\nPlease enter the food group that this ingredient belongs to\nEnter the name of the Food Group. Choose from:\n1.Carbohydrate\n2.Protein\n3.Fat\n4.Fruit\n5.Vegetable\n6.Dairy");
+                FoodGroup foodGroup = GetFoodGroup($"Please enter the food group for {ingredientName}: ");
+
+                // create a new object with user input
+                Ingredient ingredient = new Ingredient(ingredientName, quantity, unit, foodGroup, calories);
+                // add ingredient object to list ingredients
+                ingredients.Add(ingredient);
 
                 Console.WriteLine("");
+            }// end for loop
+        }// setIngredients method
 
-                // Prompt user for the quantity of the ingredient and store in variable
-                Console.Write($"Quantity of {Ingredients[i].Name}: ");
-                Ingredients[i].Quantity = GetDoubleInput();
-                OriginalQuantities[i] = Ingredients[i].Quantity; //store a copy of the quantity in another array used for reseting
+        public void setSteps()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("============================================");
+            Console.WriteLine("Enter Step Directions:");
+            Console.WriteLine("============================================");
+            Console.ResetColor();
 
-                Console.WriteLine("");
-
-                //Prompt user for the unit of measurement for each ingredient
-                //Call GetUnitOfMeasurement method to do error checking and range checking
-                Ingredients[i].Unit = GetUnitOfMeasurement($"Unit of measurement for {Ingredients[i].Name}: ");
-                OriginalUnits[i] = Ingredients[i].Unit; //store a copy of unit of measurement to use for reseting
-
-                Console.WriteLine("");
-            }//for loop end
-
-            //Prompt user for the number of steps to use a loop controller
-            Console.Write("Number of steps: ");
-            //Call GetIntegerInput method to do error checking and validation - to ensure user enters a number
-            int numSteps = GetIntegerInput();
-
-            //Instanitate step class of the size based on userinput for number of steps
-            Steps = new Step[numSteps];
-
-            //run a for loop to enter the steps decriptions
             for (int i = 0; i < numSteps; i++)
-            {//for loop begin
-                //create new instance for Step class each time loop exercutes
-                Steps[i] = new Step();
+            {
+                Console.WriteLine($"Please enter the directions for step {i + 1}:");
+                // get the step from user >> if null then throw exception
+                string step = Console.ReadLine();
+                if (step == null)
+                { throw new ArgumentNullException("directions for step can not be null"); }
 
-                //Prompt user for each steps description and sore in variable in step class by calling the get string input method
-                Steps[i].Description = GetNonEmptyStringInput($"Step {i + 1} description: ");
-            }//for loop end
-        } // EnterRecipeDetails end
+                // add step to array ateps
+                steps.Add(step);
+
+            }// end for loop
+        }// end setSteps method
+
+        public void displayIngredients()
+        {
+            // for loop will run for the number of objects in the ingredients array
+            for (int i = 0; i < ingredients.Count(); i++)
+            {
+                // display each object in the arraylist
+                Ingredient ingredient = (Ingredient)ingredients[i];
+
+            }// end for loop
+        }// end displayIngredients method
+
+        public void displaySteps()
+        {
+            // run a loop for the number of elements in steps to display each step
+            for (int i = 0; i < steps.Count; i++)
+            { Console.WriteLine($"Step {i + 1}: {steps[i]}"); }
+
+            Console.WriteLine();
+        }// end displaySteps
+
 
         //Method to display the reciep in a neat format
         public void DisplayRecipe()
         {//DisplayRecipe begin
+
             //Display the Recipe Name in Yellow
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"============================================");
@@ -165,11 +197,7 @@ namespace ST10251759_PROG6221_POE_Part_2
             Console.ResetColor();
 
             //for each loop to access each element in the ingredient class
-            foreach (Ingredient ingredient in Ingredients)
-            {//for each begin
-                //display the ingredient details
-                Console.WriteLine($"- {ingredient.Quantity} {ingredient.Unit} of {ingredient.Name}");
-            }//for each end
+            displayIngredients();
 
             //Display the Step heading in blue
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -177,13 +205,85 @@ namespace ST10251759_PROG6221_POE_Part_2
             Console.ResetColor();
 
             //for each loop to get the user input for steps
-            for (int i = 0; i < Steps.Length; i++)
-            {//for loop begin
-             // DisplayRecipe all the steps
-                Console.WriteLine($"Step {i + 1}: {Steps[i].Description}");
-            }//for loop end
+            displaySteps();
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("");
+            displayCalories();
+            Console.ResetColor();
+
             Console.WriteLine("\n-----------------------------------------------------------");
         }//DisplayRecipe end
+
+        public double calculateTotalCalories()
+        {
+            totalCalories = 0; //create variable to hold total calories
+
+            // runs a loop to access each ingredient object in ingredients list
+            // allowing system to retrieve the number of calories for each ingredient and add them together
+            for (int i = 0; i < ingredients.Count(); i++)
+            {
+                totalCalories += ingredients[i].calories;
+            }// end for loop
+
+            return totalCalories;
+        }// end calculate total calories method
+
+        public void displayCalorieMessage(string message)
+        { Console.WriteLine(message); }
+        // delegate method created to dsplay a warning message to user once a recipe contains more than 300 calories
+        // method also used to provide a message about the number of calories in the recipe to the uer
+
+        public void displayCalories()
+        {
+            RecipeDelegate recipeDelegate = new RecipeDelegate(displayCalorieMessage);
+            // create instance of delegate
+
+            recipeDelegate($"Total number of calories in recipe: {totalCalories}");
+            // use of delegate to display the total number of calories in the recipe to the user
+
+            if (totalCalories > 300)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                recipeDelegate("CALORIES EXCEED 300");
+                // delegate used to warn user that recipe calories is over 300
+                Console.ForegroundColor = ConsoleColor.White;
+            }// end if
+
+            if (totalCalories > 0 && totalCalories <= 200)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                recipeDelegate("This amount of calories is enough to satisfy you without interfering with appetite and is a good SNACK");
+                // delegate used to display to user that recipe calories is a snack
+                Console.ForegroundColor = ConsoleColor.White;
+                message = "Snack";
+            }// end if snack
+            else if (totalCalories > 200 && totalCalories <= 400)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                recipeDelegate("This amount of calories serves as a LOW CALORIE MEAL, aiding in weight loss");
+                // delegate used to display to user that recipe calories is a low calorie meal
+                Console.ForegroundColor = ConsoleColor.White;
+                message = "Low Calorie Meal";
+            }// end low calorie meal
+            else if (totalCalories > 400 && totalCalories <= 700)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                recipeDelegate("This amount of calories is sutable for an AVERAGE MEAL ");
+                // delegate used to display to user that calories are average
+                Console.ForegroundColor = ConsoleColor.White;
+                message = "Average Calorie Meal";
+            }
+            else if (totalCalories > 700)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                recipeDelegate("This meal is considered a HIGH CALORIE MEAL, containing a large amount of calories, and should not be consumed frequently");
+                // delegate used to display to user that calories are high 
+                Console.ForegroundColor = ConsoleColor.White;
+                message = "High Calorie Meal";
+            }
+
+        }// end display calories method
 
         //Method to scale the reciepe ingreidents to make large quantiies 
         public void ScaleRecipe()
@@ -204,11 +304,18 @@ namespace ST10251759_PROG6221_POE_Part_2
             //Call method to validate the user input
             double factor = GetDoubleScalingFactor();
 
+            //get the total calories and store in a variable
+            totalCalories = calculateTotalCalories() * factor;
+
+
+
             //foreach to alter each value of the array ingredients
-            foreach (Ingredient ingredient in Ingredients)
+            foreach (Ingredient ingredient in ingredients)
             {//for each begin
                 //the scaled value equals the ingredients quantity multiplied by the factor
                 double scaledQuantity = ingredient.Quantity * factor;
+
+
 
                 //The switch statement is used to select one of many code blocks to be executed based on the value of a given expression.
                 switch (ingredient.Unit)
@@ -234,6 +341,10 @@ namespace ST10251759_PROG6221_POE_Part_2
                         //Don't need to add validation here because i have catered in another method to ensure user selects correct unit or measurement
                         break;
                 }//switch end
+
+                //alter the calories for ingredient
+                //ingredient.calories *= factor;
+
             }//for each end
 
             //Display successful message in green
@@ -242,33 +353,7 @@ namespace ST10251759_PROG6221_POE_Part_2
             Console.ResetColor();
         }//ScaleRecipe end
 
-        //Method to get unit of measurement from enum
-        private UnitOfMeasurement GetUnitOfMeasurement(string prompt)
-        {//GetUnitOfMeasurement begin
-            //while loop to continuelly prompting user
-            while (true)
-            {//while loop begin
-                Console.Write(prompt);
-                string input = Console.ReadLine().ToUpper();
 
-                //check if the user input is a valid option in enum
-                if (Enum.TryParse<UnitOfMeasurement>(input, out UnitOfMeasurement unit))
-                {//if valid begin
-                    return unit;
-                }//if valid end
-                else //if not valid option
-                {//else begin
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Invalid unit of measurement. Valid options are:");
-                    Console.ResetColor();
-                    //Display the Options
-                    foreach (UnitOfMeasurement option in Enum.GetValues(typeof(UnitOfMeasurement)))
-                    {
-                        Console.WriteLine(option.ToString());
-                    }
-                }//else end
-            }//while loop end
-        }//GetUnitOfMeasurement end
 
         //method to convert to cup as unit of measurement
         public void ConvertCups(Ingredient ingredient, double newQuantity)
@@ -374,12 +459,17 @@ namespace ST10251759_PROG6221_POE_Part_2
         public void ResetRecipe()
         {//ResetRecipe begin
 
-            //run for loop to access all elements of array
-            for (int i = 0; i < Ingredients.Length; i++)
-            {//for loop begin
-                Ingredients[i].Quantity = OriginalQuantities[i];
-                Ingredients[i].Unit = OriginalUnits[i];
-            }//for loop end
+            //int i = 0;
+            // Run a loop to access all elements of the list
+            foreach (Ingredient ingredient in ingredients)
+            {//foreach loop begin
+                ingredient.Quantity = ingredient.OriginalQuantity;
+                ingredient.Unit = ingredient.OriginalUnit;
+                ingredient.calories = ingredient.originalCalories; // Reset the calories for each ingredient
+                //i++;
+            }//foreach loop end
+
+            totalCalories = calculateTotalCalories();
 
             //Display succesful message in green
             Console.ForegroundColor = ConsoleColor.Green;
@@ -388,36 +478,37 @@ namespace ST10251759_PROG6221_POE_Part_2
         }//ResetRecipe end
 
         //method to clear recipe details and reprompt user to enter a new recipe
-        public void ClearRecipe()
-        {//ClearRecipe begin
+        //public void ClearRecipe()
+        //{//ClearRecipe begin
 
-            //Prompt user to confirm if they want to delete reply either yes or no
-            Console.WriteLine("Are you sure you want to clear the recipe? (yes/no)");
-            string response = Console.ReadLine().ToLower();
+        //    //Prompt user to confirm if they want to delete reply either yes or no
+        //    Console.WriteLine("Are you sure you want to clear the recipe? (yes/no)");
+        //    string response = Console.ReadLine().ToLower();
 
-            //if statement to either to either clear the recipe data and add new recipe or to cancel operation 
-            if (response == "yes")
-            {//if the user selects yes to clear recipe begin
-                Console.WriteLine("Clearing the recipe...");
-                //Clear the contents of the array
-                Ingredients = null;
-                Steps = null;
-                //Display success message in green
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\nRecipe has been cleared successfully!\n");
-                Console.ResetColor();
+        //    //if statement to either to either clear the recipe data and add new recipe or to cancel operation 
+        //    if (response == "yes")
+        //    {//if the user selects yes to clear recipe begin
+        //        Console.WriteLine("Clearing the recipe...");
+        //    //Clear the contents of the array
+        //    Ingredients = null;
+        //    Steps = null;
+        //    //Display success message in green
+        //    Console.ForegroundColor = ConsoleColor.Green;
+        //    Console.WriteLine("\nRecipe has been cleared successfully!\n");
+        //    Console.ResetColor();
 
-                //Call method to reprompt user to enter a new recipe details
-                EnterRecipeDetails();
+        //    //Call method to reprompt user to enter a new recipe details
+        //    //EnterRecipeDetails();
 
-            }//if the user selects yes to clear recipe end
-            else
-            {//else if the user cancels the operation by selection no or anything that is not yes begin
-                Console.WriteLine("Clear operation canceled.");
-            }//else if the user cancels the operation by selection no or anything that is not yes begin
-        }//ClearRecipe end
+        //    }//if the user selects yes to clear recipe end
+        //    else
+        //    {//else if the user cancels the operation by selection no or anything that is not yes begin
+        //        Console.WriteLine("Clear operation canceled.");
+        //    }//else if the user cancels the operation by selection no or anything that is not yes begin
+        //}//ClearRecipe end
 
         //method to validate the intger entered as user input
+
         private int GetIntegerInput()
         {//GetIntegerInput begin
             //while loop to continue prompting user until value is correct
@@ -514,6 +605,75 @@ namespace ST10251759_PROG6221_POE_Part_2
 
             return input;
         }//GetNonEmptyStringInput end
+
+        //Method to get unit of measurement from enum
+        private UnitOfMeasurement GetUnitOfMeasurement(string prompt)
+        {//GetUnitOfMeasurement begin
+            //while loop to continuelly prompting user
+            while (true)
+            {//while loop begin
+                Console.Write(prompt);
+                string input = Console.ReadLine().ToUpper();
+
+                //check if the user input is a valid option in enum
+                if (Enum.TryParse<UnitOfMeasurement>(input, out UnitOfMeasurement unit))
+                {//if valid begin
+                    return unit;
+                }//if valid end
+                else //if not valid option
+                {//else begin
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid unit of measurement. Valid options are:");
+                    Console.ResetColor();
+                    //Display the Options
+                    foreach (UnitOfMeasurement option in Enum.GetValues(typeof(UnitOfMeasurement)))
+                    {
+                        Console.WriteLine(option.ToString());
+                    }
+                }//else end
+            }//while loop end
+        }//GetUnitOfMeasurement end
+
+        //Method to get unit of measurement from enum
+        private FoodGroup GetFoodGroup(string prompt)
+        {//GetFoodGroup begin
+            //while loop to continuelly prompting user
+            while (true)
+            {//while loop begin
+                Console.Write(prompt);
+                string input = Console.ReadLine().ToUpper();
+
+                //check if the user input is a valid option in enum
+                if (Enum.TryParse<FoodGroup>(input, out FoodGroup foodGroup))
+                {//if valid begin
+                    return foodGroup;
+                }//if valid end
+                else //if not valid option
+                {//else begin
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid Food Group. Valid options are:");
+                    Console.ResetColor();
+                    //Display the Options
+                    foreach (FoodGroup option in Enum.GetValues(typeof(FoodGroup)))
+                    {
+                        Console.WriteLine(option.ToString());
+                    }
+                }//else end
+            }//while loop end
+        }//GetFoodGroup end
+
+        //GETTERS AND SETTERS
+
+        // CREATED FOR USE IN UNIT TESTING
+        public void setTotalCalories(double totalCalories)
+        { this.totalCalories = totalCalories; }
+
+        public void setIngredients(List<Ingredient> ingredients)
+        { this.ingredients = ingredients; }
+
+        public string Message()
+        { return message; }
+
 
     }//Reciepe Class Begin
 }//namespace end

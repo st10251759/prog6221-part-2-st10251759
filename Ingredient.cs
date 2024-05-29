@@ -22,7 +22,7 @@ Date of Access: 09 April 2024
 */
 namespace ST10251759_PROG6221_POE_Part_2
 {//namespace begin
-    internal class Ingredient
+    public class Ingredient
     {//Ingredient Class Begin
         //attribute variable declaration - with getter and setter methods 
         public string Name { get; set; }
@@ -32,18 +32,25 @@ namespace ST10251759_PROG6221_POE_Part_2
         public UnitOfMeasurement OriginalUnit { get; set; }
         public UnitOfMeasurement Unit { get; set; } //enum
 
+        public FoodGroup FoodGroup { get; set; } //enum for food group
+        public double calories { get; set; }
+        public double originalCalories { get; set; }
+
         public Ingredient()
         {
         }
 
         //constructor Method with 4 parameters
-        public Ingredient(string name, double quantity, UnitOfMeasurement unit)
+        public Ingredient(string name, double quantity, UnitOfMeasurement unit, FoodGroup foodGroup, double calories)
         {//constructor begin
             Name = name;
             Quantity = quantity;
             Unit = unit;
             OriginalQuantity = quantity;
             OriginalUnit = unit; //needs to be stroed in an integer
+            FoodGroup = foodGroup;
+            this.calories = calories;
+            originalCalories = calories;
         }//constructor end
 
 
