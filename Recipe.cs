@@ -477,35 +477,6 @@ namespace ST10251759_PROG6221_POE_Part_2
             Console.ResetColor();
         }//ResetRecipe end
 
-        //method to clear recipe details and reprompt user to enter a new recipe
-        //public void ClearRecipe()
-        //{//ClearRecipe begin
-
-        //    //Prompt user to confirm if they want to delete reply either yes or no
-        //    Console.WriteLine("Are you sure you want to clear the recipe? (yes/no)");
-        //    string response = Console.ReadLine().ToLower();
-
-        //    //if statement to either to either clear the recipe data and add new recipe or to cancel operation 
-        //    if (response == "yes")
-        //    {//if the user selects yes to clear recipe begin
-        //        Console.WriteLine("Clearing the recipe...");
-        //    //Clear the contents of the array
-        //    Ingredients = null;
-        //    Steps = null;
-        //    //Display success message in green
-        //    Console.ForegroundColor = ConsoleColor.Green;
-        //    Console.WriteLine("\nRecipe has been cleared successfully!\n");
-        //    Console.ResetColor();
-
-        //    //Call method to reprompt user to enter a new recipe details
-        //    //EnterRecipeDetails();
-
-        //    }//if the user selects yes to clear recipe end
-        //    else
-        //    {//else if the user cancels the operation by selection no or anything that is not yes begin
-        //        Console.WriteLine("Clear operation canceled.");
-        //    }//else if the user cancels the operation by selection no or anything that is not yes begin
-        //}//ClearRecipe end
 
         //method to validate the intger entered as user input
 
