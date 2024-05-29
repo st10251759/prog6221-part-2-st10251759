@@ -66,7 +66,7 @@ Feel free to contribute to the project by submitting pull requests or suggesting
   - Date Accessed: 29 May 2024
   - Source: [Bubble Sort](https://www.geeksforgeeks.org/bubble-sort/)
   - Date Accessed: 29 May 2024
-  - Source: [Delegates]([https://www.geeksforgeeks.org/bubble-sort/](https://www.geeksforgeeks.org/c-sharp-delegates/))
+  - Source: [Delegates]((https://www.geeksforgeeks.org/c-sharp-delegates/)
   - Date Accessed: 29 May 2024
 
 ## Learning Outcomes
