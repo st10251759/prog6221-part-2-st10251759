@@ -37,15 +37,42 @@ Date of Access: 09 April 2024
 */
 namespace ST10251759_PROG6221_POE_Part_2
 {//namespace begin
-    internal class Recipe
+    public class Recipe
     {//Reciepe Class Begin
         //Attribute - variable declaration
         public string Name { get; set; }
-        public Ingredient[] Ingredients { get; set; }
+        //public Ingredient[] Ingredients { get; set; }
         public double[] OriginalQuantities { get; set; }
 
+        public double[] OriginalCalories { get; set; }
         public UnitOfMeasurement[] OriginalUnits { get; set; }
-        public Step[] Steps { get; set; }
+        //public Step[] Steps { get; set; }
+
+        //New variables for part 2
+        private string message; // used for unit testing
+
+        private List<Ingredient> ingredients = new List<Ingredient>();
+        // use of generic collections
+        // list create to store ingredient objects
+
+        private List<string> steps = new List<string>();
+        // use of generic collections
+        // string list created to store each step in recipe
+
+        private double totalCalories;
+        // private double variable created to store the total number of calories in a recipe
+
+        private int numIngredients;
+
+        private int numSteps;
+
+        // CONSTRUCTOR METHOD
+        public Recipe(string name, int numIngredients, int numSteps)
+        {
+            Name = name;
+            this.numIngredients = numIngredients;
+            this.numSteps = numSteps;
+        }// end constructor
 
         //Method to prompt user to enter details for reciepe 
         public void EnterRecipeDetails()
