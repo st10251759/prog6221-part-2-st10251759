@@ -190,6 +190,112 @@ namespace ST10251759_PROG6221_POE_Part_2
             }//while end
         }//recipeOptions end
 
+        public void mainOptions()
+        {
+            int selection = 3;
+
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine("Please select one of the following options:\n1.Add Recipe\n2.Display All recipes\n3.Exit\n");
+                Console.ResetColor();
+                Console.Write("\nEnter your choice:");
+                selection = int.Parse(Console.ReadLine());
+
+                switch (selection)
+                {
+                    case 1:
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        addRecipe();// allow the user to enter new recipes
+                        break;
+                    case 2:
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        displayAllRecipies();// allow the user to choose from a list of current recipes
+                        break;
+                }
+            }// end do
+            while (selection != 3);// exits the application
+
+
+            if (selection == 3)
+            {
+                Console.Clear();
+                Console.WriteLine("========================================================");
+                Console.WriteLine("Exiting App!! Thank You for using Recipe Management App");
+                Console.WriteLine("=======================================================");
+                Console.ResetColor();
+                System.Environment.Exit(0);
+            }
+        }// end main options method
+
+        public void displayAllRecipies()
+        {
+            if (recipes.Count == 0)
+            {
+                Console.WriteLine("There are no recipes to display.");
+                return;
+            }
+
+            Recipe temp;
+
+            // two for loops and if statments used to bubble sort the list of recipes
+            // allows for recipes to be displayed to the user in alphabetical order
+            for (int i = 0; i < recipes.Count(); i++)
+            {
+                for (int j = 0; j < recipes.Count(); j++)
+                {
+                    if (string.Compare(recipes[i].Name, recipes[j].Name) < 0)
+                    {
+                        temp = recipes[i];
+                        recipes[i] = recipes[j];
+                        recipes[j] = temp;
+                    }// end if 
+                }// end for j loop
+            }// end for i loop
+
+            Console.WriteLine("Please select one of the following recipes\nEnter the recipe number:");
+
+            for (int k = 0; k < recipes.Count(); k++)
+            {
+                Console.WriteLine($"{k + 1}. {recipes[k].Name}");
+            }// end k loop
+
+            Console.WriteLine("0. Return to Main Menu\n");
+
+            Console.Write("\nEnter your choice:");
+            int selection = int.Parse(Console.ReadLine());
+            if (selection != 0)
+            {
+                Recipe recipe = recipes[selection - 1];
+                recipeOptions(recipe);
+            }//end if 
+            else if (selection == 0)
+            {
+                Console.Clear();
+                mainOptions();
+            }
+
+        }// end display all method
+
+        //Clear recipe method to remove the recipe from the list
+        public void DeleteRecipe(List<Recipe> recipes, Recipe recipeToDelete)
+        {
+            if (recipes.Contains(recipeToDelete))
+            {
+                recipes.Remove(recipeToDelete);
+                Console.WriteLine($"Recipe '{recipeToDelete.Name}' has been deleted.\n");
+            }
+            else
+            {
+                Console.WriteLine($"Recipe '{recipeToDelete.Name}' not found.\n");
+            }
+        }
+
+
+        // --------------USER INPUT VALIDATING METHODS----------------------------
+
         private int GetIntegerInput()
         {//GetIntegerInput begin
          //while loop to continue prompting user until value is correct
