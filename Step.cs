@@ -18,7 +18,16 @@ using System.Threading.Tasks;
 
 Author: Fatima Shaik 
 Website: https://github.com/fb-shaik/PROG6221-Group1-2024/tree/main/Class_Objects_App
-Date of Access: 23 March 2024        
+Date of Access: 23 March 2024  
+
+Author: Fatima Shaik 
+Website: https://github.com/fb-shaik/PROG6221-Group1-2024/tree/main/Generics_Library_App
+Date of Access: 29 May 2024 
+
+Author: Fatima Shaik 
+Website: https://github.com/fb-shaik/PROG6221-Group1-2024/tree/main/Collection_Generics_LU3
+Date of Access: 29 May 2024 
+
 
 =============Code Attribution====================
 */

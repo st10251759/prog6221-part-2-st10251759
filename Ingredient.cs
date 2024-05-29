@@ -19,6 +19,15 @@ Author: Fatima Shaik
 Website: https://github.com/fb-shaik/PROG6221-Group1-2024/tree/main/EnumDemo_App
 Date of Access: 09 April 2024 
 
+Author: Fatima Shaik 
+Website: https://github.com/fb-shaik/PROG6221-Group1-2024/tree/main/Generics_Library_App
+Date of Access: 29 May 2024 
+
+Author: Fatima Shaik 
+Website: https://github.com/fb-shaik/PROG6221-Group1-2024/tree/main/Collection_Generics_LU3
+Date of Access: 29 May 2024 
+
+
 =============Code Attribution====================
 */
 namespace ST10251759_PROG6221_POE_Part_2
