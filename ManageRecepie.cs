@@ -13,7 +13,62 @@ namespace ST10251759_PROG6221_POE_Part_2
         // use of generic collections
         // a list created to store the recipes that are entered by a user
 
+        //this method will create instance of a recipe object and add the recipes to the recipe list
+        public void addRecipe()
+        {//addRecipe begin 
 
+            //Display Headings in Green
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("============================================");
+            Console.WriteLine("Enter Recipe Details:");
+            Console.WriteLine("============================================");
+            Console.ResetColor();
+
+            // GET NAME FROM USER
+            string recipeName = GetNonEmptyStringInput("Please enter the name of the recipe you wish to add:");
+
+            // GET NUM INGREDIENTS FREOM USER
+            int numIngredients; //variable to hold number of ingredients
+            //do while loop to continue prompting user if they enter invalid integer ( zero or less)
+            do
+            {//do begin
+                Console.Write("\nPlease enter the number of ingredients in your recipe:");
+                numIngredients = GetIntegerInput();
+                if (numIngredients <= 0)
+                {//if begin
+                    Console.WriteLine("\nPlease enter a valid number (greater than zero).");
+                }//if end
+            }//do end
+            while (numIngredients <= 0); //while condition
+
+            // GET NUM STEPS FREOM USER
+            int numSteps; //variable to hold number of steps
+            //do while loop to continue prompting user if they enter invalid integer ( zero or less)
+            do
+            {//do begin
+                Console.Write("\nPlease enter the number of steps in your recipe:");
+                numSteps = GetIntegerInput();
+                if (numSteps <= 0)
+                {//if begin
+                    Console.WriteLine("\nPlease enter a valid number (greater than zero).");
+                }//if end
+            }//do end
+            while (numSteps <= 0); //while condition
+
+            // CREATE RECIPE OBJECT
+            Recipe recipe = new Recipe(recipeName, numIngredients, numSteps);
+            recipe.setIngredients(); // get the ingredients in the recipe from the user
+            recipe.setSteps();// get the steps for the recipe from the user
+            recipe.calculateTotalCalories();// calculate the total number of calories in the recipe
+
+            recipes.Add(recipe); // add the new recipe object to the list of recipe object
+
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
+            recipe.DisplayRecipe(); // display the recipe to the user
+
+        }//addRecipe end
+ 
         private int GetIntegerInput()
         {//GetIntegerInput begin
          //while loop to continue prompting user until value is correct
