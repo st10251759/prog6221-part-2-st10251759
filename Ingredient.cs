@@ -64,5 +64,23 @@ namespace ST10251759_PROG6221_POE_Part_2
         {
             Unit = OriginalUnit;
         }
+
+        public void CalculateScaledCalories(double factor)
+        {
+            // Assuming CaloriesPerUnit is the number of calories per unit of the ingredient
+            calories = factor * calories;
+        }
+
+        //method to alter the calories to return to its orginal state
+        public void ResetCalories()
+        {
+            this.calories = originalCalories;
+        }
+        public void display()
+        { Console.WriteLine($"{Quantity} {Unit} of {Name}\nFood Group: {FoodGroup}\n{calories} calories\n"); }
+        // display method created to display the quantity along with the unit of measurment for each ingredient
+        // as well as number of calories and food group
+        // string interpolation used in display
+
     }//Ingredient Class end
 }//namespace end
