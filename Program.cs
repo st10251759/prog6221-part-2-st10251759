@@ -23,95 +23,23 @@ Date of Access: 27 March 2024
 */
 namespace ST10251759_PROG6221_POE_Part_2
 {//namespace begin
-
+    
     internal class Program
     {//program begin
         static void Main(string[] args)
         {//main begin
 
             //Inital display to welcome the user to the application
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("============================================");
             Console.WriteLine("     Welcome to the Recipe Management App    ");
             Console.WriteLine("============================================");
             Console.ResetColor();
 
             //instationation of the object reciepe - so that it may be called in the main class
-            Recipe recipe = new Recipe();
-            //call the method in reciepe class that prompts the user to enter the reciepes name and details
-            recipe.EnterRecipeDetails();
-            //call the method to display the details of the reciepe entered
-            recipe.DisplayRecipe();
-
-            //flag variable that will add validation to continue to prompt the user for the menu option until user selects exit by entering the integer 4
-            bool exit = false;
-            while (!exit)
-            {//while begin
-                //display options for user to select
-                Console.WriteLine("\nSelect an option:");
-                Console.WriteLine("1. Scale Recipe");
-                Console.WriteLine("2. Reset Recipe");
-                Console.WriteLine("3. Clear");
-                Console.WriteLine("4. Exit");
-                Console.WriteLine("--------------------------------------------\n");
-
-                //variable to capture users choice after the prompt - call method that will validate wether input is in correct format (integer was entered)
-                int choice = GetIntegerInput("Enter your choice: ");
-                //switch case to cycle through the options and call relevent methods based on user choice
-                switch (choice)
-                {//switch begin
-                    case 1:
-                        //call the method to scale the ingredients of the recipes
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine("============================================");
-                        Console.WriteLine("          Scaling Recipe          ");
-                        Console.WriteLine("============================================");
-                        Console.ResetColor();
-
-                        recipe.ScaleRecipe();
-                        recipe.DisplayRecipe();
-                        break;
-                    case 2:
-                        //call the method to reset the values of the reciepe to the original values
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine("============================================");
-                        Console.WriteLine("          Resetting Recipe          ");
-                        Console.WriteLine("============================================");
-                        Console.ResetColor();
-
-                        recipe.ResetRecipe();
-                        recipe.DisplayRecipe();
-                        break;
-                    case 3:
-                        //call the method to clear the reciepe entered and reprompt user to enter antoehr recipe
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine("============================================");
-                        Console.WriteLine("          Clearing Recipe          ");
-                        Console.WriteLine("============================================");
-                        Console.ResetColor();
-
-                        recipe.ClearRecipe();
-                        recipe.DisplayRecipe();
-                        break;
-                    case 4:
-                        //exit the program
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                        Console.WriteLine("========================================================");
-                        Console.WriteLine("Exiting App!! Thank You for using Recipe Management App");
-                        Console.WriteLine("=======================================================");
-                        Console.ResetColor();
-                        exit = true;
-                        break;
-                    default:
-                        //Valition if user entered an invalid number not between the range of 1 - 4
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Invalid option. Please try again.");
-                        Console.ResetColor();
-
-                        break;
-                }//switch end
-            }//while end
+            ManageRecepie manageRecepie = new ManageRecepie();
+            manageRecepie.addRecipe();// user must add a recipe before displaying options to display all recipies or add recipe
+            manageRecepie.mainOptions();// displays options to user - to view current recipes or to add a recipe
         }//main end
 
         //Integer method to recieve a value that is entered by user and goes through validation to make sure the value entered is an integer and inform user if invalid input is entered
