@@ -7,6 +7,11 @@
  Github Link for Part 2: https://github.com/st10251759/prog6221-part-2-st10251759
  */
 
+/*
+=============Feedback==================== 
+I obtained 100% and reciped no iplemented feedback. All work done was to address the requirements of PART 2 ONLY, and there  NO FEEDBACK to implement for part 1.  
+*/
+
 
 /*
 =============Code Attribution====================
@@ -25,6 +30,8 @@ Date of Access: 27 March 2024
 
 =============Code Attribution====================
 */
+
+//For my main programme icleaned it up and limited the use of logic in this class, i just called and instaniasted methods
 namespace ST10251759_PROG6221_POE_Part_2
 {//namespace begin
     

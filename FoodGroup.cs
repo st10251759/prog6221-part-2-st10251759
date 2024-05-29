@@ -30,7 +30,7 @@ namespace ST10251759_PROG6221_POE_Part_2
 {//namespace begin
     //enum to hold the 6 food groups
     public enum FoodGroup
-    {
+    {//FoodGroup begin
         CARBOHYDRATE,
         PROTEIN,
         FAT,
@@ -38,5 +38,5 @@ namespace ST10251759_PROG6221_POE_Part_2
         VEGETABLE,
         DAIRY
 
-    }// end enum
+    }//FoodGroup end enum
 }//namespace end

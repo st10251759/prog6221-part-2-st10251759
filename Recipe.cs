@@ -14,6 +14,11 @@ using System.Threading.Tasks;
  */
 
 /*
+=============Feedback==================== 
+I obtained 100% and reciped no iplemented feedback. All work done was to address the requirements of PART 2 ONLY, and there  NO FEEDBACK to implement for part 1.  
+*/
+
+/*
 =============Code Attribution====================
 Author: Geeks for Geeks
 Website: https://www.geeksforgeeks.org/console-class-in-c-sharp/
@@ -151,20 +156,22 @@ namespace ST10251759_PROG6221_POE_Part_2
             }// end for loop
         }// setIngredients method
 
+        //method to get recipe sets and store them in the list (generic collection for lists)
         public void setSteps()
-        {
+        {//setSteps method begin
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("============================================");
             Console.WriteLine("Enter Step Directions:");
             Console.WriteLine("============================================");
             Console.ResetColor();
 
+            //for loop to continuly prompting and capturing the user input for steps
             for (int i = 0; i < numSteps; i++)
             {
                 Console.WriteLine($"Please enter the directions for step {i + 1}:");
                 // get the step from user >> if null then throw exception
                 string step = Console.ReadLine();
-                if (step == null)
+                if (step == null) //validation to proevent no input entered by user
                 { throw new ArgumentNullException("directions for step can not be null"); }
 
                 // add step to array ateps
@@ -173,19 +180,21 @@ namespace ST10251759_PROG6221_POE_Part_2
             }// end for loop
         }// end setSteps method
 
+        //method to display ingredients by calling the methods avaliable for generic collections
         public void displayIngredients()
         {
             // for loop will run for the number of objects in the ingredients array
             for (int i = 0; i < ingredients.Count(); i++)
             {
-                // display each object in the arraylist
+                // display each object in the List
                 Ingredient ingredient = (Ingredient)ingredients[i];
                 ingredient.display();
             }// end for loop
         }// end displayIngredients method
 
+        //method to display steps by calling the methods avaliable for generic collections
         public void displaySteps()
-        {
+        {//displaySteps begin
             // run a loop for the number of elements in steps to display each step
             for (int i = 0; i < steps.Count; i++)
             { Console.WriteLine($"Step {i + 1}: {steps[i]}"); }
@@ -229,8 +238,9 @@ namespace ST10251759_PROG6221_POE_Part_2
             Console.WriteLine("\n-----------------------------------------------------------");
         }//DisplayRecipe end
 
+        //method to calulate the total calories for each recipe by adding the calories of each ingredient
         public double calculateTotalCalories()
-        {
+        {//calculate total clories begin
             totalCalories = 0; //create variable to hold total calories
 
             // runs a loop to access each ingredient object in ingredients list
@@ -243,21 +253,24 @@ namespace ST10251759_PROG6221_POE_Part_2
             return totalCalories;
         }// end calculate total calories method
 
+        // delegate method created to dsplay a warning message to user once a recipe contains more than 300 calories
         public void displayCalorieMessage(string message)
         { Console.WriteLine(message); }
-        // delegate method created to dsplay a warning message to user once a recipe contains more than 300 calories
         // method also used to provide a message about the number of calories in the recipe to the uer
 
+        //method to diplay total caloriesfor the recipe along with nutritional infor for the reipe based of the totalCalories value
         public void displayCalories()
-        {
+        {//displayCalories begin
             RecipeDelegate recipeDelegate = new RecipeDelegate(displayCalorieMessage);
             // create instance of delegate
 
             recipeDelegate($"Total number of calories in recipe: {totalCalories}");
             // use of delegate to display the total number of calories in the recipe to the user
+            //Use if statements to run through different senarios with the totalCalorie value - also make use of the delegate to notify user on the specif senarios based on totalCalories
 
+            //if calories is greater than 300 notify user that calories exceeds 300
             if (totalCalories > 300)
-            {
+            {//begin if
                 Console.ForegroundColor = ConsoleColor.Red;
                 recipeDelegate("CALORIES EXCEED 300");
                 // delegate used to warn user that recipe calories is over 300

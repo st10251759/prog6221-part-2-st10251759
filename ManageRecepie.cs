@@ -13,6 +13,32 @@ using System.Threading.Tasks;
  Github Link for Part 2: https://github.com/st10251759/prog6221-part-2-st10251759
  */
 
+/*
+=============Feedback==================== 
+I obtained 100% and reciped no iplemented feedback. All work done was to address the requirements of PART 2 ONLY, and there  NO FEEDBACK to implement for part 1.  
+*/
+
+/*
+=============Code Attribution====================
+
+Author: Fatima Shaik 
+Website: https://github.com/fb-shaik/PROG6221-Group1-2024/tree/main/ErrorHandling_App
+Date of Access: 29 May 2024  
+
+Author: GeeksForGeeks
+Website: https://www.geeksforgeeks.org/c-sharp-list-class/
+Date of Access: 29 May 2024 
+
+Author: Fatima Shaik 
+Website: https://github.com/fb-shaik/PROG6221-Group1-2024/blob/main/Employee_Demo/Program.cs
+Date of Access: 29 May 2024 
+
+Author: GeeksForGeeks 
+Website: https://www.geeksforgeeks.org/bubble-sort/
+Date of Access: 29 May 2024 
+=============Code Attribution====================
+*/
+
 namespace ST10251759_PROG6221_POE_Part_2
 {//namespace begin
     public class ManageRecepie
@@ -78,6 +104,8 @@ namespace ST10251759_PROG6221_POE_Part_2
 
         }//addRecipe end
 
+
+        //this method will display a list of options based on specific recipe selected by a user
         public void recipeOptions(Recipe recipe)
         {//recipeOptions Method begin 
             int selection = 0;
@@ -98,6 +126,7 @@ namespace ST10251759_PROG6221_POE_Part_2
                 selection = int.Parse(Console.ReadLine());
                 // get selection number form user
 
+                //if statement for validation to see if the user input is in bounds (between 1 and 6)
                 if (selection < 0 || selection > 7)
                 { throw new ArgumentOutOfRangeException("Selection is out of bounds"); }
 
@@ -199,18 +228,23 @@ namespace ST10251759_PROG6221_POE_Part_2
             }//while end
         }//recipeOptions end
 
+        //this method will display the main options to a user
         public void mainOptions()
-        {
+        {//mainOptions begin
+            //default value
             int selection = 3;
 
+            //do while loop to continue prompting user
             do
-            {
+            {//do loop begin
                 Console.ForegroundColor = ConsoleColor.Magenta;
+                //display options for user to select
                 Console.WriteLine("Please select one of the following options:\n1.Add Recipe\n2.Display All recipes\n3.Exit\n");
                 Console.ResetColor();
+                //Get user input
                 Console.Write("\nEnter your choice:");
                 selection = int.Parse(Console.ReadLine());
-
+                //switch case for user options based on user input
                 switch (selection)
                 {
                     case 1:
@@ -224,10 +258,10 @@ namespace ST10251759_PROG6221_POE_Part_2
                         displayAllRecipies();// allow the user to choose from a list of current recipes
                         break;
                 }
-            }// end do
+            }// end do loop
             while (selection != 3);// exits the application
 
-
+            //if statement for validation
             if (selection == 3)
             {
                 Console.Clear();
@@ -239,15 +273,18 @@ namespace ST10251759_PROG6221_POE_Part_2
             }
         }// end main options method
 
+        //method to display all recipes that are stored alphabetically in the generic collection for recipes
         public void displayAllRecipies()
-        {
+        {//displayAllRecipes begin
+
+            //Validation for no recipes
             if (recipes.Count == 0)
             {
                 Console.WriteLine("There are no recipes to display.");
                 return;
             }
 
-            Recipe temp;
+            Recipe temp;//varaible for sorting
 
             // two for loops and if statments used to bubble sort the list of recipes
             // allows for recipes to be displayed to the user in alphabetical order
@@ -272,7 +309,7 @@ namespace ST10251759_PROG6221_POE_Part_2
             }// end k loop
 
             Console.WriteLine("0. Return to Main Menu\n");
-
+            //display choices to select a recipe
             Console.Write("\nEnter your choice:");
             int selection = int.Parse(Console.ReadLine());
             if (selection != 0)
@@ -282,29 +319,31 @@ namespace ST10251759_PROG6221_POE_Part_2
             }//end if 
             else if (selection == 0)
             {
+                //retun to main options menu
                 Console.Clear();
                 mainOptions();
             }
 
         }// end display all method
 
-        //Clear recipe method to remove the recipe from the list
+        //Clear recipe method to remove the recipe from the list - removes a specifc recipe (this is an improvement to work well in part 2 - previous clear recipe method removed all recipes, this method recipes a recipe selected by a user)
         public void DeleteRecipe(List<Recipe> recipes, Recipe recipeToDelete)
-        {
+        {//public deleteRecipe begin
             if (recipes.Contains(recipeToDelete))
-            {
+            {//if begin
+                //remove the recipe from the list
                 recipes.Remove(recipeToDelete);
                 Console.WriteLine($"Recipe '{recipeToDelete.Name}' has been deleted.\n");
-            }
+            }//if end
             else
-            {
+            {//else begin
                 Console.WriteLine($"Recipe '{recipeToDelete.Name}' not found.\n");
-            }
-        }
+            }//else end
+        }//public deleteRecipe end
 
 
         // --------------USER INPUT VALIDATING METHODS----------------------------
-
+        //method to get user input for integer
         private int GetIntegerInput()
         {//GetIntegerInput begin
          //while loop to continue prompting user until value is correct
