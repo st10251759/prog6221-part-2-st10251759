@@ -27,6 +27,10 @@ Author: Fatima Shaik
 Website: https://github.com/fb-shaik/PROG6221-Group1-2024/tree/main/ErrorHandling_App
 Date of Access: 27 March 2024  
 
+Author: Hillary Nyakundi 
+Website: https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/
+Date of Access: 30 March 2024  
+
 
 =============Code Attribution====================
 */
