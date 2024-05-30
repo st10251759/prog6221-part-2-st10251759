@@ -659,5 +659,17 @@ namespace ST10251759_PROG6221_POE_Part_2
             }//while loop end
         }//GetFoodGroup end
 
+        //GETTERS AND SETTERS
+
+        // CREATED FOR USE IN UNIT TESTING
+        public void setTotalCalories(double totalCalories)
+        { this.totalCalories = totalCalories; }
+
+        public void setIngredients(List<Ingredient> ingredients)
+        { this.ingredients = ingredients; }
+
+        public string Message()
+        { return message; }
+
     }//Reciepe Class Begin
 }//namespace end
